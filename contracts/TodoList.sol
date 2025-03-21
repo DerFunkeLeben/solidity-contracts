@@ -49,7 +49,17 @@ contract TodoList {
         }
     }
 
-    function getTasks() external view returns (Task[] memory) {
-        return tasks;
+    function getTasks() external view returns (uint256[] memory, string[] memory, bool[] memory) {
+        uint256[] memory ids = new uint256[](tasks.length);
+        string[] memory descriptions = new string[](tasks.length);
+        bool[] memory statuses = new bool[](tasks.length);
+
+        for (uint256 i = 0; i < tasks.length; i++) {
+            ids[i] = tasks[i].id;
+            descriptions[i] = tasks[i].description;
+            statuses[i] = tasks[i].isCompleted;
+        }
+
+        return (ids, descriptions, statuses);
     }
 }
